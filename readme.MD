@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ## Prerequirements:
-=======
-# Prerequirements:
->>>>>>> 69cdc76ee65d43de99519b6ff7f288e94579cf06
 
 ## Database:
 
