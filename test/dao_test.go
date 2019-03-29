@@ -14,7 +14,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var DB *sql.DB
+var (
+	DB *sql.DB
+)
+
+const (
+	dbTestUser     string = "postgres"
+	dbTestPassword string = "postgres"
+	dbTestName     string = "cametest"
+	dbTestHost     string = "localhost"
+)
 
 func check(e error) {
 	if e != nil {
@@ -23,10 +32,9 @@ func check(e error) {
 }
 
 func initDB() {
-	fmt.Println("Initialize Database")
 	db, err_conn := sql.Open("postgres", fmt.Sprintf(
 		"user=%s password=%s dbname=%s host=%s sslmode=disable",
-		"postgres", "postgres", "cametest", "localhost"))
+		dbTestUser, dbTestPassword, dbTestName, dbTestHost))
 	DB = db
 
 	check(err_conn)
@@ -41,6 +49,7 @@ func initDB() {
 
 func TestAllUsersQry(t *testing.T) {
 	initDB()
+	fmt.Println("All users query Test")
 	dao := &db.Dao{}
 	users := dao.GetAllUsers(DB)
 	assert.Equal(t, 5, len(users))
@@ -48,6 +57,7 @@ func TestAllUsersQry(t *testing.T) {
 
 func TestUserByIdQry(t *testing.T) {
 	initDB()
+	fmt.Println("User by id query Test")
 	dao := &db.Dao{}
 	u, found := dao.FindUserById(DB, 1)
 	assert.True(t, found)
@@ -58,6 +68,7 @@ func TestUserByIdQry(t *testing.T) {
 
 func TestSaveUser(t *testing.T) {
 	initDB()
+	fmt.Println("Save user Test")
 	dao := &db.Dao{}
 	u := model.User{Username: "user_test", Name: "Kevin", Surname: "Reds", Password: "pwd", BirthDate: time.Now()}
 	user_saved, err := dao.SaveUser(DB, &u)
@@ -67,6 +78,7 @@ func TestSaveUser(t *testing.T) {
 
 func TestSaveAlreadyExistingUser(t *testing.T) {
 	initDB()
+	fmt.Println("Save already existing user Test")
 	dao := &db.Dao{}
 	u := model.User{Username: "Abc123", Name: "Kevin", Surname: "Reds", Password: "pwd", BirthDate: time.Now()}
 	user_saved, err := dao.SaveUser(DB, &u)
@@ -76,6 +88,7 @@ func TestSaveAlreadyExistingUser(t *testing.T) {
 
 func TestUpdateUser(t *testing.T) {
 	initDB()
+	fmt.Println("Update user Test")
 	dao := &db.Dao{}
 	u := model.User{Username: "Abc123", Name: "Michele", Surname: "Rossi", Password: "pwd", BirthDate: time.Now()}
 	user_upd, err := dao.UpdateUser(DB, &u, 1)
@@ -86,6 +99,7 @@ func TestUpdateUser(t *testing.T) {
 
 func TestDeleteUser(t *testing.T) {
 	initDB()
+	fmt.Println("Delete user Test")
 	dao := &db.Dao{}
 	err := dao.DeleteUser(DB, 2)
 	assert.Nil(t, err)
@@ -93,6 +107,7 @@ func TestDeleteUser(t *testing.T) {
 
 func TestSearchUsers(t *testing.T) {
 	initDB()
+	fmt.Println("Search users Test")
 	dao := &db.Dao{}
 	filter := model.UserSearchRequest{Name: "Andrea", Surname: "Rossi"}
 	users, err := dao.GetAllUsersByFilters(DB, &filter)
