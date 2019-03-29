@@ -3,14 +3,15 @@ package main
 
 import (
 	"came-users/app"
-	_ "came-users/app/model"
 	"came-users/config"
-	"fmt"
-	_ "time"
+	"log"
 )
 
+func init() {
+}
+
 func main() {
-	fmt.Println("Welcome to Came Application")
+	log.Println("Welcome to Came Application")
 	config := config.GetConfig()
 
 	app := &app.App{}
