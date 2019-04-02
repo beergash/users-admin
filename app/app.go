@@ -1,12 +1,12 @@
 package app
 
 import (
-	"users-admin/app/handler"
-	"users-admin/config"
 	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
+	"users-admin/app/handlers"
+	"users-admin/config"
 
 	"github.com/gorilla/mux"
 
@@ -54,22 +54,22 @@ func (a *App) setRouters() {
 ** Projects Handlers
  */
 func (a *App) GetAllUsers(w http.ResponseWriter, r *http.Request) {
-	handler.GetAllUsers(a.DB, w, r)
+	handlers.GetAllUsers(a.DB, w, r)
 }
 func (a *App) FindUserById(w http.ResponseWriter, r *http.Request) {
-	handler.FindUserById(a.DB, w, r)
+	handlers.FindUserById(a.DB, w, r)
 }
 func (a *App) CreateUser(w http.ResponseWriter, r *http.Request) {
-	handler.CreateUser(a.DB, w, r)
+	handlers.CreateUser(a.DB, w, r)
 }
 func (a *App) DeleteUser(w http.ResponseWriter, r *http.Request) {
-	handler.DeleteUser(a.DB, w, r)
+	handlers.DeleteUser(a.DB, w, r)
 }
 func (a *App) ModifyUser(w http.ResponseWriter, r *http.Request) {
-	handler.ModifyUser(a.DB, w, r)
+	handlers.ModifyUser(a.DB, w, r)
 }
 func (a *App) SearchUsers(w http.ResponseWriter, r *http.Request) {
-	handler.SearchUsersByFilters(a.DB, w, r)
+	handlers.SearchUsersByFilters(a.DB, w, r)
 }
 
 // Get wraps the router for GET method

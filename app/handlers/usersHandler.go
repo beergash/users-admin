@@ -1,4 +1,4 @@
-package handler
+package handlers
 
 import (
 	"users-admin/app/db"
