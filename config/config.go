@@ -19,7 +19,7 @@ func GetConfig() *Config {
 			Dialect:  "postgres",
 			Username: "postgres",
 			Password: "postgres",
-			Name:     "came",
+			Name:     "users",
 			Host:     "localhost",
 			Charset:  "utf8",
 		},

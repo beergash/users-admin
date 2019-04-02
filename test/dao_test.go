@@ -1,8 +1,8 @@
 package test
 
 import (
-	"came-users/app/db"
-	"came-users/app/model"
+	"users-admin/app/db"
+	"users-admin/app/model"
 	"database/sql"
 	"fmt"
 	"io/ioutil"
@@ -21,7 +21,7 @@ var (
 const (
 	dbTestUser     string = "postgres"
 	dbTestPassword string = "postgres"
-	dbTestName     string = "cametest"
+	dbTestName     string = "userstest"
 	dbTestHost     string = "localhost"
 )
 
@@ -49,7 +49,6 @@ func initDB() {
 
 func TestAllUsersQry(t *testing.T) {
 	initDB()
-	fmt.Println("All users query Test")
 	dao := &db.Dao{}
 	users := dao.GetAllUsers(DB)
 	assert.Equal(t, 5, len(users))
@@ -57,7 +56,6 @@ func TestAllUsersQry(t *testing.T) {
 
 func TestUserByIdQry(t *testing.T) {
 	initDB()
-	fmt.Println("User by id query Test")
 	dao := &db.Dao{}
 	u, found := dao.FindUserById(DB, 1)
 	assert.True(t, found)
@@ -68,7 +66,6 @@ func TestUserByIdQry(t *testing.T) {
 
 func TestSaveUser(t *testing.T) {
 	initDB()
-	fmt.Println("Save user Test")
 	dao := &db.Dao{}
 	u := model.User{Username: "user_test", Name: "Kevin", Surname: "Reds", Password: "pwd", BirthDate: time.Now()}
 	user_saved, err := dao.SaveUser(DB, &u)
@@ -78,7 +75,6 @@ func TestSaveUser(t *testing.T) {
 
 func TestSaveAlreadyExistingUser(t *testing.T) {
 	initDB()
-	fmt.Println("Save already existing user Test")
 	dao := &db.Dao{}
 	u := model.User{Username: "Abc123", Name: "Kevin", Surname: "Reds", Password: "pwd", BirthDate: time.Now()}
 	user_saved, err := dao.SaveUser(DB, &u)
@@ -88,7 +84,6 @@ func TestSaveAlreadyExistingUser(t *testing.T) {
 
 func TestUpdateUser(t *testing.T) {
 	initDB()
-	fmt.Println("Update user Test")
 	dao := &db.Dao{}
 	u := model.User{Username: "Abc123", Name: "Michele", Surname: "Rossi", Password: "pwd", BirthDate: time.Now()}
 	user_upd, err := dao.UpdateUser(DB, &u, 1)
@@ -99,7 +94,6 @@ func TestUpdateUser(t *testing.T) {
 
 func TestDeleteUser(t *testing.T) {
 	initDB()
-	fmt.Println("Delete user Test")
 	dao := &db.Dao{}
 	err := dao.DeleteUser(DB, 2)
 	assert.Nil(t, err)
@@ -107,7 +101,6 @@ func TestDeleteUser(t *testing.T) {
 
 func TestSearchUsers(t *testing.T) {
 	initDB()
-	fmt.Println("Search users Test")
 	dao := &db.Dao{}
 	filter := model.UserSearchRequest{Name: "Andrea", Surname: "Rossi"}
 	users, err := dao.GetAllUsersByFilters(DB, &filter)

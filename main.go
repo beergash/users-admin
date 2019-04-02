@@ -2,8 +2,8 @@
 package main
 
 import (
-	"came-users/app"
-	"came-users/config"
+	"users-admin/app"
+	"users-admin/config"
 	"log"
 )
 

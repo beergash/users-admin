@@ -1,7 +1,7 @@
 package db
 
 import (
-	"came-users/app/model"
+	"users-admin/app/model"
 	"database/sql"
 	_ "errors"
 	"log"

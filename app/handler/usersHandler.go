@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"came-users/app/db"
-	"came-users/app/model"
+	"users-admin/app/db"
+	"users-admin/app/model"
 	"database/sql"
 	"encoding/json"
 	"log"

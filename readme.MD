@@ -3,16 +3,17 @@
 ## Database:
 
 1) Create a postgres Database instance
-2) Set database properties (user, password, host, db name) in the file $GOPATH/src/came-users/config/config.go
-3) Set database properties for the db test  in the file (view const variables) $GOPATH/src/came-users/test/dao_test.go
-4) Execute the sql script : $GOPATH/src/came-users/sql/create_schema_ddl.sql to initialize schema
+2) Set database properties (user, password, host, db name) in the file $GOPATH/src/users-admin/config/config.go
+3) Set database properties for the db test  in the file (view const variables) $GOPATH/src/users-admin/test/dao_test.go
+4) Execute the sql script : $GOPATH/src/users-admin/sql/create_schema_ddl.sql to initialize schema
 
 ## Test:
-To run unit test go to the folder $GOPATH/src/came-users/test and execute command : go test
+To run unit test go to the folder $GOPATH/src/users-admin/test and execute command :
+go test -v
 
 ## Application Startup:
 To start application execute command:
-go run $GOPATH/src/came-users/main.go
+go run $GOPATH/src/users-admin/main.go
 
 ## Rest Calls curl examples:
 

@@ -1,8 +1,8 @@
 package app
 
 import (
-	"came-users/app/handler"
-	"came-users/config"
+	"users-admin/app/handler"
+	"users-admin/config"
 	"database/sql"
 	"fmt"
 	"log"
