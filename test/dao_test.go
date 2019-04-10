@@ -1,14 +1,14 @@
 package test
 
 import (
-	"users-admin/app/db"
-	"users-admin/app/model"
 	"database/sql"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
 	"time"
+	"users-admin/app/db"
+	"users-admin/app/model"
 
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/assert"

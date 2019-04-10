@@ -1,18 +1,19 @@
 package handlers
 
 import (
-	"users-admin/app/db"
-	"users-admin/app/model"
 	"database/sql"
 	"encoding/json"
 	"log"
 	"net/http"
+	"users-admin/app/db"
+	"users-admin/app/model"
 
 	"strconv"
 
 	"github.com/gorilla/mux"
 )
 
+// Get all users.
 func GetAllUsers(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
 	log.Println("find all users end point")
 	dao := &db.Dao{}

@@ -10,6 +10,8 @@
 ## Test:
 To run unit test go to the folder $GOPATH/src/users-admin/test and execute command :
 go test -v
+To get test coverage execute command:
+go test -cover -coverpkg=../...
 
 ## Application Startup:
 To start application execute command:
