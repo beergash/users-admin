@@ -1,10 +1,10 @@
 package db
 
 import (
-	"users-admin/app/model"
 	"database/sql"
 	_ "errors"
-	"log"
+	"users-admin/app/logger"
+	"users-admin/app/model"
 
 	_ "github.com/lib/pq"
 )
@@ -21,14 +21,14 @@ type Dao struct{}
 func (a *Dao) GetAllUsers(db *sql.DB) []model.User {
 	rows, err := db.Query(selectAllUsersQry)
 	if err != nil {
-		log.Fatal(err)
+		logger.Error.Fatal(err)
 	}
 	users := []model.User{}
 
 	for rows.Next() {
 		u := model.User{}
 		if err := rows.Scan(&u.Id, &u.Username, &u.Password, &u.Name, &u.Surname, &u.BirthDate); err != nil {
-			log.Fatal(err)
+			logger.Error.Fatal(err)
 		}
 		users = append(users, u)
 	}
@@ -37,13 +37,13 @@ func (a *Dao) GetAllUsers(db *sql.DB) []model.User {
 }
 
 func (a *Dao) FindUserById(db *sql.DB, id int64) (model.User, bool) {
-	log.Printf("searching user with id %d ", id)
+	logger.Info.Printf("searching user with id %d ", id)
 	u := model.User{}
 	row := db.QueryRow(selectUserByIdQry, id)
 	err := row.Scan(&u.Id, &u.Username, &u.Password, &u.Name, &u.Surname, &u.BirthDate)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			log.Printf("No found rows for id %d", id)
+			logger.Info.Printf("No found rows for id %d", id)
 			return u, false
 		} else {
 			panic(err)
@@ -58,7 +58,7 @@ func (a *Dao) SaveUser(db *sql.DB, u *model.User) (*model.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Printf("user: %s correctly added", u.Username)
+	logger.Info.Printf("user: %s correctly added", u.Username)
 	return u, nil
 
 }
@@ -69,7 +69,7 @@ func (a *Dao) UpdateUser(db *sql.DB, u *model.User, id int64) (*model.User, erro
 	if err != nil {
 		return nil, err
 	}
-	log.Printf("user: %s correctly updated", u.Username)
+	logger.Info.Printf("user: %s correctly updated", u.Username)
 	return u, nil
 
 }
@@ -80,7 +80,7 @@ func (a *Dao) DeleteUser(db *sql.DB, id int64) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("userid: %d correctly deleted", id)
+	logger.Info.Printf("userid: %d correctly deleted", id)
 	return nil
 
 }
@@ -88,7 +88,7 @@ func (a *Dao) DeleteUser(db *sql.DB, id int64) error {
 func (a *Dao) GetAllUsersByFilters(db *sql.DB, filter *model.UserSearchRequest) ([]model.User, error) {
 	rows, err := db.Query(selectUsersWithFiltersQry, filter.Name, filter.Surname)
 	if err != nil {
-		log.Fatal(err)
+		logger.Error.Fatal(err)
 		return nil, err
 	}
 	users := []model.User{}
@@ -96,7 +96,7 @@ func (a *Dao) GetAllUsersByFilters(db *sql.DB, filter *model.UserSearchRequest) 
 	for rows.Next() {
 		u := model.User{}
 		if err := rows.Scan(&u.Id, &u.Username, &u.Password, &u.Name, &u.Surname, &u.BirthDate); err != nil {
-			log.Fatal(err)
+			logger.Error.Fatal(err)
 			return nil, err
 		}
 		users = append(users, u)

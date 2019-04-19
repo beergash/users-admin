@@ -3,9 +3,9 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
-	"log"
 	"net/http"
 	"users-admin/app/db"
+	"users-admin/app/logger"
 	"users-admin/app/model"
 
 	"strconv"
@@ -15,14 +15,14 @@ import (
 
 // Get all users.
 func GetAllUsers(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
-	log.Println("find all users end point")
+	logger.Info.Println("find all users end point")
 	dao := &db.Dao{}
 	users := dao.GetAllUsers(dbSource)
 	respondJSON(w, http.StatusOK, users)
 }
 
 func FindUserById(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
-	log.Println("find by user id end point")
+	logger.Info.Println("find by user id end point")
 	vars := mux.Vars(r)
 	userid, err := strconv.ParseInt(vars["userid"], 10, 8)
 	if err != nil {
@@ -32,7 +32,7 @@ func FindUserById(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
 	user, found := dao.FindUserById(dbSource, userid)
 
 	if found == true {
-		log.Printf("user name found %s", user.Username)
+		logger.Info.Printf("user name found %s", user.Username)
 		respondJSON(w, http.StatusOK, user)
 	} else {
 		respondJSON(w, http.StatusNoContent, nil)
@@ -40,7 +40,7 @@ func FindUserById(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateUser(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
-	log.Println("Create user end point")
+	logger.Info.Println("Create user end point")
 	dao := &db.Dao{}
 	user := model.User{}
 
@@ -60,7 +60,7 @@ func CreateUser(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
 }
 
 func ModifyUser(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
-	log.Println("Modify user end point")
+	logger.Info.Println("Modify user end point")
 	vars := mux.Vars(r)
 	userid, errConv := strconv.ParseInt(vars["userid"], 10, 8)
 	if errConv != nil {
@@ -85,7 +85,7 @@ func ModifyUser(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteUser(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
-	log.Println("Delete user end point")
+	logger.Info.Println("Delete user end point")
 	vars := mux.Vars(r)
 	userid, errConv := strconv.ParseInt(vars["userid"], 10, 8)
 	if errConv != nil {
@@ -101,7 +101,7 @@ func DeleteUser(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
 }
 
 func SearchUsersByFilters(dbSource *sql.DB, w http.ResponseWriter, r *http.Request) {
-	log.Println("Search users end point")
+	logger.Info.Println("Search users end point")
 	dao := &db.Dao{}
 	usrSearchReq := model.UserSearchRequest{}
 

@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"users-admin/app/handlers"
+	"users-admin/app/logger"
 	"users-admin/config"
 
 	"github.com/gorilla/mux"
@@ -21,12 +22,11 @@ type App struct {
 
 // Initialize initializes the app with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	fmt.Println("Initialization Db configuration")
-	fmt.Printf("DB username %s\n", config.DB.Username)
-	fmt.Printf("DB password %s\n", config.DB.Password)
-	fmt.Printf("DB Name %s\n", config.DB.Name)
-	fmt.Printf("DB Dialect %s\n", config.DB.Dialect)
-
+	logger.Info.Println("Initialization Db configuration")
+	logger.Info.Printf("DB username %s\n", config.DB.Username)
+	logger.Info.Printf("DB password %s\n", config.DB.Password)
+	logger.Info.Printf("DB Name %s\n", config.DB.Name)
+	logger.Info.Printf("DB Dialect %s\n", config.DB.Dialect)
 	db, err := sql.Open("postgres", fmt.Sprintf(
 		"user=%s password=%s dbname=%s host=%s sslmode=disable",
 		config.DB.Username, config.DB.Password, config.DB.Name, config.DB.Host))
