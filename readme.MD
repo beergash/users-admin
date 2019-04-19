@@ -17,6 +17,9 @@ go test -cover -coverpkg=../...
 To start application execute command:
 go run $GOPATH/src/users-admin/main.go
 
+## Build application and give an executable file name
+GOOS=linux GOARCH=386 go build -o users-admin.sh cmd/users-admin/main.go
+
 ## Rest Calls curl examples:
 
 ### Get all users: 
